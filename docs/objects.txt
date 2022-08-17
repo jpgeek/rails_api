@@ -1,0 +1,3 @@
+# create text for models, controllers etc.
+
+rails g scaffold user email:uniq password:digest first_name:string last_name:string
