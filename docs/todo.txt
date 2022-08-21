@@ -1,0 +1,8 @@
+
+rspec ./spec/requests/users_spec.rb:53
+
+can't find the namespace url for the user
+override to_parital_path for User model?
+
+check rendering of users
+
