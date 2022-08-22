@@ -30,19 +30,19 @@ Rspec, included via rspec-rails.
 `pundit`
 
 # Authentication
-## bcrypt + `has_secure_password`
+## `bcrypt` + `has_secure_password`
 ## `jwt`
 OWASP indicates that JWT is an emerging standard for security tokens:
-    https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#jwt
+[OWASP](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#jwt)
 
 Using HMAC with SHA-512 ("alg" value = "HS512").
 Application is a single verifier, so don't need asymmetric keys.
 
 ## ref
-[RFC7518](https://www.rfc-editor.org/rfc/rfc7518#section-3.1)
-[hmac sha 512](https://security.stackexchange.com/a/96176/242497)
-[OWASP recommendations](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
-[StackOverflow Blog Best Practices for REST API Design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
+* [RFC7518](https://www.rfc-editor.org/rfc/rfc7518#section-3.1)
+* [hmac sha 512](https://security.stackexchange.com/a/96176/242497)
+* [OWASP recommendations](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
+* [StackOverflow Blog Best Practices for REST API Design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
 
 ## JWT implementation
 JWT is handled by `jwt_rails`
@@ -50,9 +50,12 @@ Wrapped by JwtManager to set defaults, add revocation.
 
 
 # TODO
+Add Pundit auth to controllers
+Add json response for auth errors
+    render_error_payload(...)
+
+Add Authentication, specs
+
 User, Token responses
 Pagination, filtering on resources
 
-Add Authentication, specs
-Add User model
-Add Pundit for user

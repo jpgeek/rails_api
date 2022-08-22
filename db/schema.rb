@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_16_074504) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_22_042338) do
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_16_074504) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "user", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

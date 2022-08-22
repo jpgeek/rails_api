@@ -24,3 +24,10 @@ en:
       title: Unable to find the referenced user
       detail: Unable to find the referenced user
       status: 404
+    user_not_authorized:
+      title: Permission denied
+      detail: You don't have permission for this action
+      status: 403
+
+  pundit:
+    not_authenticated: User is not authenticated
