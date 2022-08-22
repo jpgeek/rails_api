@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class SessionsController < ApplicationController
@@ -10,8 +12,8 @@ module Api
           render_error_payload(:authentication_failed)
           return
         end
-        jwt = JwtManager.encode({user_id: user.id})
-        render json: { authentication: { jwt: jwt } }
+        jwt = JwtManager.encode({ user_id: user.id })
+        render json: { authentication: { jwt: } }
       end
 
       def logout

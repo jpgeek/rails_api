@@ -23,7 +23,9 @@ module Api
         if @<%= orm_instance.save %>
           render :show, status: :created, location: <%= "api_v1_#{singular_table_name}_path(@#{singular_table_name})" %>
         else
-          render json: { errors: <%= "@#{orm_instance.errors}" %> }, status: :unprocessable_entity
+          render 'common/model_errors',
+            locals: { instance: @<%= singular_table_name %> },
+            status: :unprocessable_entity
         end
       end
 
@@ -35,7 +37,9 @@ module Api
         if @<%= "#{singular_table_name}.save" %>
           render :show, status: :ok, location: <%= "api_v1_#{singular_table_name}_path(@#{singular_table_name})" %>
         else
-          render json: { errors: <%= "@#{orm_instance.errors}" %> }, status: :unprocessable_entity
+          render 'common/model_errors',
+            locals: { instance: @<%= singular_table_name %> },
+            status: :unprocessable_entity
         end
       end
 

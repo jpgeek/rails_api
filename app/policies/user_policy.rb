@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPolicy < NilAllowedPolicy
   def index?
     disallow_nil_user

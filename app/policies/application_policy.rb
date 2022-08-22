@@ -6,7 +6,7 @@ class ApplicationPolicy
   def initialize(user, record)
     unless user
       raise Pundit::NotAuthorizedError,
-        I18n.t('pundit.not_authenticated')
+        I18n.t("pundit.not_authenticated")
     end
     @user = user
     @record = record
@@ -43,7 +43,7 @@ class ApplicationPolicy
   class Scope
     def initialize(user, scope)
       unless user
-        raise Pundit::NotAuthorizedError, I18n.t('pundit.not_authenticated')
+        raise Pundit::NotAuthorizedError, I18n.t("pundit.not_authenticated")
       end
       @user = user
       @scope = scope
@@ -54,7 +54,6 @@ class ApplicationPolicy
     end
 
     private
-
-    attr_reader :user, :scope
+      attr_reader :user, :scope
   end
 end

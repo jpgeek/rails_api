@@ -1,7 +1,9 @@
-require 'jwt'
+# frozen_string_literal: true
+
+require "jwt"
 
 # A manager class for handling JWT tokens.  This sets a bunch of sane defaults
-# and uses config values and encrypted credentials for configuration (see the 
+# and uses config values and encrypted credentials for configuration (see the
 # initalizer).  It also handles a revocation list, to emulate a "user logout"
 # action.
 class JwtManager
@@ -25,7 +27,7 @@ class JwtManager
   # nbf (not before) and exp (expiration) values.
   # Values for iss (issuer) and aud (audience) are not included by default.
   # Add them to the payload hash if desired.
-  # +payload+ is a hash of attributes to include.  The following attributes are 
+  # +payload+ is a hash of attributes to include.  The following attributes are
   # included automatically:
   #   +iat+ time of creation
   #   +nbf+ "not before" time
@@ -38,8 +40,8 @@ class JwtManager
   end
 
   def self.decode(token)
-    raise JWT::RevokedToken if revoked?(token) 
-    JWT.decode token, hmac_secret, true, { algorithm: algorithm }
+    raise JWT::RevokedToken if revoked?(token)
+    JWT.decode token, hmac_secret, true, { algorithm: }
   end
 
   # Add the revocation hash for this +token+ to the revoked list.
@@ -49,7 +51,7 @@ class JwtManager
   def self.revoke(token)
     rh = revocation_hash(token)
     return if @revoked_list[rh]
-    exp = payload(token)['exp']
+    exp = payload(token)["exp"]
     @revoked_list[rh] = exp.to_i
   end
 
@@ -59,7 +61,7 @@ class JwtManager
 
   private
     def self.payload(token)
-      Base64.decode64(token.split('.')[1]).to_json
+      Base64.decode64(token.split(".")[1]).to_json
     end
 
     def self.revocation_hash(token)
@@ -79,19 +81,19 @@ class JwtManager
     # Time of creation in seconds.
     def self.iat
       iat = Time.now.to_i
-      { iat: iat }
+      { iat: }
     end
 
     # "Not Before" time in seconds.
     def self.nbf
       nbf = Time.now.to_i - 3600
-      { nbf: nbf }
+      { nbf: }
     end
 
     # Expiration time in seconds.
     def self.exp
-      exp = Time.now.to_i + Rails.configuration.x.jwt.ttl 
-      { exp: exp }
+      exp = Time.now.to_i + Rails.configuration.x.jwt.ttl
+      { exp: }
     end
 
     # Unique identifier.

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  #before_action :authenticate
+  # before_action :authenticate
 
-  def current_user 
+  def current_user
     return @current_user unless @current_user.blank?
     if jwt_token.blank?
       return nil
     end
     begin
       decoded_token = decoded_jwt_token
-      @current_user = User.find(decoded_token[0]['user_id'])
+      @current_user = User.find(decoded_token[0]["user_id"])
     rescue JWT::RevokedToken
       render_error_payload(:token_revoked)
     rescue JWT::ExpiredSignature
@@ -36,8 +36,8 @@ class ApplicationController < ActionController::API
       resource_name = request
         .controller_class
         .name
-        .split('::')
-        .last.gsub('Controller','')
+        .split("::")
+        .last.gsub("Controller", "")
         .singularize
         .underscore
       authorize(instance_variable_get("@#{resource_name}".to_sym))
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::API
       # https://jwt.io/introduction/
       # ex:
       #   Authorization: Bearer <token>
-      header = request.headers['Authorization'] || ''
-      header&.split(' ')&.last&.strip if header
+      header = request.headers["Authorization"] || ""
+      header&.split(" ")&.last&.strip if header
     end
 end

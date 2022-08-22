@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Support
   module PunditHelper
     def controller_methods
@@ -5,12 +7,12 @@ module Support
     end
 
     def model_from_policy(policy)
-      policy.name.sub(/Policy\z/, '').constantize
+      policy.name.delete_suffix("Policy").constantize
     end
 
-    #def independent_controller_methods
+    # def independent_controller_methods
     #  %i[index? show? create? update? destroy?]
-    #end
+    # end
   end
 end
 
@@ -29,12 +31,12 @@ RSpec::Matchers.define :raise_not_authorized do |action, *args|
   failure_message do |policy|
     "#{policy.class} does not raise NotAuthorizedError on #{action} for " +
       policy.public_send(Pundit::Matchers.configuration.user_alias)
-      .inspect + '.'
+      .inspect + "."
   end
 
   failure_message_when_negated do |policy|
     "#{policy.class} raises NotAuthorizedError on #{action} for " +
       policy.public_send(Pundit::Matchers.configuration.user_alias)
-      .inspect + '.'
+      .inspect + "."
   end
 end

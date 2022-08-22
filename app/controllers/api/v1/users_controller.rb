@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class UsersController < ApplicationController
       before_action :set_user, only: %i[ show update destroy ]
-      before_action :authorize_resource, only: %i[show update destroy] 
+      before_action :authorize_resource, only: %i[show update destroy]
 
       # GET /users
       # GET /users.json
@@ -23,7 +25,9 @@ module Api
         if @user.save
           render :show, status: :created, location: api_v1_user_path(@user)
         else
-          render json: {errors: @user.errors}, status: :unprocessable_entity
+          render "common/model_errors",
+            locals: { instance: @user },
+            status: :unprocessable_entity
         end
       end
 
@@ -34,13 +38,16 @@ module Api
         if @user.save
           render :show, status: :ok, location: api_v1_user_path(@user)
         else
-          render json: { errors: @user.errors }, status: :unprocessable_entity
+          render "common/model_errors",
+            locals: { instance: @user },
+            status: :unprocessable_entity
         end
       end
 
       # DELETE /users/1
       # DELETE /users/1.json
       def destroy
+        byebug
         @user.destroy
       end
 

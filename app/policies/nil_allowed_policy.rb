@@ -1,5 +1,6 @@
-class NilAllowedPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class NilAllowedPolicy < ApplicationPolicy
   # Override the superclass initializer to allow a nil user for this class only.
   def initialize(user, record)
     @user = user
@@ -9,7 +10,7 @@ class NilAllowedPolicy < ApplicationPolicy
   def disallow_nil_user
     return unless @user.nil?
     raise Pundit::NotAuthorizedError,
-      I18n.t('pundit.not_authenticated')
+      I18n.t("pundit.not_authenticated")
   end
 
   class Scope < Scope
