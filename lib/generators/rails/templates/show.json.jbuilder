@@ -1,1 +1,1 @@
-json.partial! "<%= plural_table_name %>/<%= singular_table_name %>", <%= singular_table_name %>: @<%= singular_table_name %>
+json.partial! "api/v1/<%= plural_table_name %>/<%= singular_table_name %>", <%= singular_table_name %>: @<%= singular_table_name %>

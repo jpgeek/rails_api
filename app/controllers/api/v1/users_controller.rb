@@ -3,7 +3,6 @@ module Api
     class UsersController < ApplicationController
       before_action :set_user, only: %i[ show update destroy ]
       before_action :authorize_resource, only: %i[show update destroy] 
-      #skip_before_action :authenticate # , only: %i[:create]
 
       # GET /users
       # GET /users.json
@@ -14,7 +13,6 @@ module Api
       # GET /users/1
       # GET /users/1.json
       def show
-        #authorize(@user)
       end
 
       # POST /users
@@ -36,7 +34,7 @@ module Api
         if @user.save
           render :show, status: :ok, location: api_v1_user_path(@user)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          render json: { errors: @user.errors }, status: :unprocessable_entity
         end
       end
 

@@ -1,6 +1,6 @@
 json.<%= singular_table_name %> do
   json.extract! <%= singular_table_name %>, <%= full_attributes_list %>
-  json.url <%= singular_table_name %>_url(<%= singular_table_name %>, format: :json)
+  json.url api_v1_<%= singular_table_name %>_url(<%= singular_table_name %>, format: :json)
   <%- virtual_attributes.each do |attribute| -%>
   <%- if attribute.type == :rich_text -%>
   json.<%= attribute.name %> <%= singular_table_name %>.<%= attribute.name %>.to_s
