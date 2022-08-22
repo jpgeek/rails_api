@@ -23,7 +23,7 @@ module Api
         if @user.save
           render :show, status: :created, location: api_v1_user_path(@user)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          render json: {errors: @user.errors}, status: :unprocessable_entity
         end
       end
 
@@ -31,7 +31,7 @@ module Api
       # PATCH/PUT /users/1.json
       def update
         if @user.update(user_params)
-          render :show, status: :ok, location: @user
+          render :show, status: :ok, location: api_v1_user_path(@user)
         else
           render json: @user.errors, status: :unprocessable_entity
         end

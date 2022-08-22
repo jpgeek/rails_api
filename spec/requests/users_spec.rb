@@ -23,7 +23,6 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      User.create! valid_attributes
       get api_v1_users_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
@@ -31,7 +30,6 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      user = User.create! valid_attributes
       get api_v1_user_url(user), as: :json
       expect(response).to be_successful
     end
@@ -73,20 +71,22 @@ RSpec.describe "/users", type: :request do
 
   describe "PATCH /update" do
     context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+      let(:new_attributes) do
+        {
+          first_name: 'Alan',
+          last_name: 'Jones',
+          email: 'alan.jones@example.com'
+        } 
+      end
 
       it "updates the requested user" do
-        user = User.create! valid_attributes
         patch api_v1_user_url(user),
               params: { user: new_attributes }, headers: valid_headers, as: :json
         user.reload
-        skip("Add assertions for updated state")
+        expect(response_json['user']).to include(new_attributes.stringify_keys)
       end
 
       it "renders a JSON response with the user" do
-        user = User.create! valid_attributes
         patch api_v1_user_url(user),
               params: { user: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
@@ -96,7 +96,6 @@ RSpec.describe "/users", type: :request do
 
     context "with invalid parameters" do
       it "renders a JSON response with errors for the user" do
-        user = User.create! valid_attributes
         patch api_v1_user_url(user),
               params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
@@ -107,7 +106,7 @@ RSpec.describe "/users", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested user" do
-      user = User.create! valid_attributes
+      user
       expect {
         delete api_v1_user_url(user), headers: valid_headers, as: :json
       }.to change(User, :count).by(-1)

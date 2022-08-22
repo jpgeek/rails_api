@@ -6,11 +6,13 @@ class ErrorPayload
   end
 
   def as_json(*)
-    {
-      status: status_code,
-      code: identifier,
-      title: translated_payload[:title],
-      detail: translated_payload[:detail],
+    { error:
+      {
+        status: status_code,
+        code: identifier,
+        title: translated_payload[:title],
+        detail: translated_payload[:detail],
+      }
     }
   end
 

@@ -20,8 +20,7 @@ en:
       title: No token provided
       detail: No token was provides.
       status: 401
-    user_not_found::
+    user_not_found:
       title: Unable to find the referenced user
       detail: Unable to find the referenced user
       status: 404
-

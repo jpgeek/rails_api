@@ -4,7 +4,6 @@ module Api
       skip_before_action :authenticate, only: :create
 
       def create
-        byebug
         user = User.find_by(email: params[:email])
           &.authenticate(params[:password])
         unless user
@@ -12,7 +11,7 @@ module Api
           return
         end
         jwt = JwtManager.encode({user_id: user.id})
-        render json: { jwt: jwt }
+        render json: { authentication: { jwt: jwt } }
       end
 
       def logout
